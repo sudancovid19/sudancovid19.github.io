@@ -15,8 +15,9 @@
 
 <script type="text/javascript"> // load the visualisation API
 google.charts.load('current', {'packages':['corechart']});
-</script>
-<script type="text/javascript">
+	
+ google.setOnLoadCallback(drawVisualization)
+
 
 function drawVisualization() {
  $.get("example.csv" , function(csvString) {  // this is where you load or call your csv data file
@@ -41,7 +42,6 @@ function drawVisualization() {
 
  }
 
- google.setOnLoadCallback(drawVisualization)
 
 
 </script>
