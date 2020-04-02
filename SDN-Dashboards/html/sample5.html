@@ -1,42 +1,61 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-    <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://raw.githubusercontent.com/sudancovid19/sudancovid19.github.io/master/SDN-Dashboards/html/libraries/jsapi.js"></script>
-    <script src="https://raw.githubusercontent.com/sudancovid19/sudancovid19.github.io/master/SDN-Dashboards/html/libraries/jquery.min.js"></script>
-    <script src="https://raw.githubusercontent.com/sudancovid19/sudancovid19.github.io/master/SDN-Dashboards/html/libraries/jquery.csv.min.js"></script>
-    <script type="text/javascript">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
 
+<title>Google Graph and CSV</title>
+<meta name="description" content="test">
+<script src="libraries/loader.js"></script>
+<script src="libraries/jquery.min.js"></script>
+<script src="libraries/jquery.csv.min.js"></script>
+<script src="libraries/jsapi.js"></script>
 
-
-    google.load('visualization', '1.0', {'packages':['corechart']});
-    google.setOnLoadCallback(BasicLine);
-
-    function BasicLine() {
-        $.get("example.csv", function(csvString) {
-            var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar}),
-                data      = new google.visualization.arrayToDataTable(arrayData),
-                options   = {
-                              hAxis: {
-                                title: 'Time'
-                              },
-                              vAxis: {
-                                title: 'Temperature'
-                              },
-                              backgroundColor: '#f1f8e9'
-                            },
-                chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
-        },
-        'text');
-    }
+<script type="text/javascript"> // load the visualisation API
+google.load('visualization', '1', { packages: ['corechart', 'bar', 'controls'] }); // load the visualisation notice bar
 </script>
+<script type="text/javascript">
 
+function drawVisualization() {
+ $.get("URL-->CSV--> GOES-->HERE" , function(csvString) {  // this is where you load or call your csv data file
+//1.  Transform the CSV string into a 2-dimensional array
+ var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+//2. This new DataTable object holds all the data
+ var data = new google.visualization.arrayToDataTable(arrayData);
+
+
+
+
+
+ var options = {
+   title: 'Company Performance',
+   curveType: 'function',
+   legend: { position: 'bottom' }
+ };
+
+ var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+ chart.draw(data, options);
+
+ }
+
+ google.setOnLoadCallback(drawVisualization)
+
+
+</script>
 </head>
+<body> // load chart in to the page
 
-<body>
-    <!--Div that will hold the pie chart-->
-    <div id="chart_div"></div>
+
+	<table class="columns">
+		<tr>
+			<td><div id="curve_chart" style="border: 1px solid #ccc" ></div> </td>
+
+		</tr>
+	</table>
+
+
 </body>
-
 </html>
