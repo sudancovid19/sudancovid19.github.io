@@ -25,7 +25,7 @@ function drawVisualization() {
  var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
 //2. This new DataTable object holds all the data
  var data = new google.visualization.arrayToDataTable(arrayData);
- }
+ 
 
 
 
@@ -39,6 +39,7 @@ function drawVisualization() {
  var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
  chart.draw(data, options);
+	    });
 
  }
 
