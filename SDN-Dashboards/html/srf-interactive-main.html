@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="theme-color" content="#fff" />
+    <meta name="msapplication-navbutton-color" content="#fff" />
+    <!-- Windows Phone -->
+    <meta name="apple-mobile-web-app-capable" content="#fff" />
+    <!-- iOS Safari -->
+    <meta name="description" content="لوحة معلومات وباء كورونا في السودان" />
+    <meta name="keywords" content="Corona,Corona sd ,كرونا" />
+    <meta name="author" content="Corona" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="blueviolet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" sizes="100x100" type="image/jpg" href="image/logo.jpg" />
+    <title>لوحه الخريطه والمعلومات التفاعليه</title>
+    <!--  lib bootstrao -->
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!--  lib fontawesome all -->
+    <link rel="stylesheet" href="css/all.main.css" />
+    <!--  lib  fontawesome -->
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+
+    <!--  main style -->
+<link rel="stylesheet" href="css/style.css" />
+<script src="libraries/jquery-3.3.1.min.js"></script>
+    <!-- lib popper -->
+<script src="libraries/popper.min.js"></script>
+    <!-- lib bootstrao -->
+<script src="libraries/bootstrap.min.js"></script>
+    <!--  main js -->
+<script src="libraries/main.js"></script>
+
+<script src="libraries/loader.js"></script>
+<script src="libraries/jquery.min.js"></script>
+<script src="libraries/jquery.csv.min.js"></script>
+<script src="libraries/jsapi"></script>
+      <!--  start your first visualization scripts here -->
+
+
+      <script type="text/javascript">
+
+        google.charts.load('current', {'packages':['geochart'],
+          // Note: you will need to get a mapsApiKey for your project.
+          // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+          'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+        });
+        google.charts.setOnLoadCallback(drawRegionsMap);
+
+        function drawRegionsMap() {
+          var data = google.visualization.arrayToDataTable([
+            ['Provinces', 'Population'],
+            ['SD-RS', 1482053],
+            ['SD-GZ', 5096920],
+            ['SD-KH', 7993235],
+            ['SD-GD', 2208385],
+            ['SD-NR', 1511442],
+            ['SD-NW', 2493880],
+            ['SD-NB', 1107623],
+            ['SD-NO', 936255],
+            ['SD-DW', 1775945],
+            ['SD-GK', 1178537],
+            ['SD-DS', 5353025],
+            ['SD-KS', 2107623],
+            ['SD-KA', 2519071],
+            ['SD-DN', 2304950],
+            ['SD-KN', 3174029],
+            ['SD-DE', 119451],
+            ['SD-SI', 1918692],
+            ['SD-DC', 2499000]
+
+          ]);
+
+          var options = {
+            title:'Sudan Population by State - 2020 Source Worldmeters',
+            backgroundColor: '#eaf9ff',
+            region:'SD',
+            resolution: 'provinces',
+            axes: {title: "Sudan Population by State - 2020 Source Worldmeters"},
+            colorAxis: {minValue: 500000, maxValue:10000000,  colors: ['#4A9928','#204DA8','#992F1A','#2292C9']}
+          };
+
+
+          var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+          chart.draw(data, options);
+        }
+      </script>
+      <!--  end your first visualization scripts here -->
+
+
+
+
+      <!--  start your second visualization scripts here -->
+
+
+
+      <script type="text/javascript"> // load the visualisation API
+        google.load('visualization', '1', { packages: ['corechart', 'bar', 'controls'] });
+      </script>
+
+
+
+
+      <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      function drawVisualization() {
+         $.get("https://raw.githubusercontent.com/sudancovid19/sdncovid19/master/SDN-Dashboards/data/jhu_compiled_sdn_report/04-02-2020_sudan_no_of_cases_jhu.csv", function(csvString) {   // this is where you load or call your csv data file
+            // transform the CSV string into a 2-dimensional array
+            var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+
+            // this new DataTable object holds all the data
+            var data = new google.visualization.arrayToDataTable(arrayData);
+            // CAPACITY - En-route ATFM delay - YY - CHART
+            var covid19_cases = new google.visualization.ChartWrapper({
+               chartType: 'ColumnChart',
+               containerId: 'covid19_cases',
+               dataTable: data,
+
+               // This is where you add your options
+               options:{
+                  width: 600, height:480,
+                  title: 'Number of Cases in Sudan Today',
+                  titleTextStyle : {color: 'grey', fontSize: 18, bold:true },
+                  focusTarget: 'category',
+                  isStacked: false,
+                  legend: { position: 'top', maxLines: 3 },
+                  bar: { groupWidth: '35%' },
+                  hAxis: {
+                    title: 'Case Type',
+                    textStyle: {
+                    fontSize: 14,
+                    color: '#053061',
+                    bold: true,
+                    italic: false,
+      	      colors: ['orange','red','blue']
+                    },
+                    titleTextStyle: {
+                      fontSize: 16,
+                      color: '#053061',
+                      bold: true,
+                      italic: false
+                    }
+                    },
+                  vAxis: {
+                    title: 'Number of cases',
+                    textStyle: {
+                    fontSize: 14,
+                    color: '#360e1a',
+                    bold: false,
+                    italic: false
+                    },
+                    titleTextStyle: {
+                    fontSize: 16,
+                    color: '#360e1a',
+                    bold: true,
+                    italic: false
+                    }
+                    }
+              }
+            });
+            covid19_cases.draw();
+         });
+      }
+      google.setOnLoadCallback(drawVisualization)
+
+      </script>
+
+
+      <!--  end your second visualization scripts here -->
+
+
+
+
+
+
+
+
+
+
+      </head>
+
+
+
+
+    <body>
+
+
+
+
+      <!--  start header -->
+      <header>
+        <!--  start container -->
+        <div class="container">
+          <!--  start row -->
+          <div class="row">
+            <!--  start nav-header -->
+            <div class="nav-header">
+              <!--  start menu -->
+              <div class="menu">
+                <span class="open"><i class="fas fa-bars"></i></span>
+              </div>
+
+
+              <!--  start menu -->
+              <!--  start nav-menu -->
+              <div class="navmenu">
+                <a class="ml-4" href="index.html">
+                    <img class="w-24 h-24" src="image/logo.jpg" alt="" width="40px" height="40px">
+                </a>
+                <div class="linknav ">
+                  <a href="index.html">الرئيسية</a>
+                </div>
+                <div class="linknav">
+                  <a href="who-are-we.html">من نحن</a>
+                </div>
+                <div class="linknav">
+                  <a href="guide.html">الدليل الارشادي</a>
+                </div>
+                <div class="linknav">
+                  <a href="guide2.html" class="active">الدليل النفسي</a>
+                </div>
+
+                <div class="linknav">
+                  <a href="c-t-volunteer.html">غرف الطوارئ الفرعية</a>
+                </div>
+                <div class="linknav">
+                  <a href="c-t-volunteer.html">الخريطه والبيانات التفاعليه</a>
+                </div>
+              </div>
+
+
+              <!--  end nav-menu -->
+              <!-- start lang -->
+              <div class="languge">
+                <div class="lang">
+                  <div class="theme-switch-wrapper">
+                    <label for="checkbox" class="theme-switch">
+                      <input type="checkbox" id="checkbox" />
+                      <div class="slider round"></div>
+                    </label>
+                    <small>الوضع الليلي</small>
+                  </div>
+                </div>
+              </div>
+              <!-- end lang -->
+            </div>
+            <!--  end nav-header -->
+          </div>
+          <!--  end row -->
+        </div>
+        <!--  end container -->
+        <!--  start nav-menu -->
+        <div class="nav-menu dropdown" id="navs-menu">
+          <div id="Sidenav" class="sidenav">
+            <div>
+              <a href="javascript:void(0)" class="closebtn mr-auto">&times;</a>
+            </div>
+            <div class="mx-4 mt-3">
+              <a class="ml-4" href="index.html">
+                <img class="w-24 h-24" src="image/logo.jpg" alt="" width="40px" height="40px">
+              </a>
+              <div class="link-nav ">
+                <a href="index.html">الريئسية</a>
+              </div>
+              <div class="link-nav">
+                <a href="who-are-we.html">من نحن</a>
+              </div>
+              <div class="link-nav">
+                <a href="guide.html">الدليل الارشادي</a>
+              </div>
+              <div class="link-nav">
+                <a href="guide2.html" class="active">الدليل النفسي</a>
+              </div>
+              <div class="link-nav">
+                <a href="c-t-volunteer.html">غرف الطوارئ الفرعية</a>
+              </div>
+
+              <div class="dropdown">
+                <a class="dropdown-menu" href="srf-interactive-main.html">لوحه المعلومات التفاعليه</a>
+                <ul class="dropdown-menu">
+                  <ul class="dropdown-menu">
+    <li><a href="#">Action</a>  </li>
+
+</ul>
+              </div>
+
+              <!-- <div class="link-nav">
+                <a href="public-policy.html">السياسة العامة</a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <!--  end nav-menu -->
+      </header>
+      <!--  end header -->
+
+      <section class="guide">
+        <!--  start container -->
+        <div class="container">
+
+          <!--  Start visualization table here -->
+
+<table class="columns">
+
+<tr>
+  <!--  Sudan Population Map interactive -->
+
+<td>
+  <center><b><p>Sudan Population by State - 2020 Source Worldmeters</p><b/>
+  <div id="regions_div" style="border: 1px solid #ccc" ><center></div>
+</td>
+</tr>
+  <!--  Sudan Hospitals  Map By State interactive -->
+</table>
+<!--  End  visualization table here -->
+<table>
+<tr>
+  <td>
+  <center><b><p>COVI-19 Number of Cases Today in Sudan</p><b/>
+<div id="covid19_cases" style="border: 1px solid #ccc" ></div>
+</td>
+</tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <!--  end container -->
+      </section>
+      <!--  end guide2-->
+
+
+<!--  copy right -->
+<div class="text-center copy-right">
+  <p>فريق الإستجابة السوداني لإدارة الكوارث</p>
+  <p>
+    <a href="tel:0963144047">0963144047</a> -
+    <a href="tel:0917779999">0917779999</a>
+  </p>
+</div>
+<!--  end copy right -->
+<!--  start scroll up -->
+<div id="scroll-up">
+  <i class="fa fa-angle-up"></i>
+</div>
+<!--  end scroll up -->
+<!-- lib jquery -->
+<script src="libraries/jquery-3.3.1.min.js"></script>
+<!-- lib popper -->
+<script src="libraries/popper.min.js"></script>
+<!-- lib bootstrao -->
+<script src="libraries/bootstrap.min.js"></script>
+<!--  main js -->
+<script src="libraries/main.js"></script>
+</body>
+</html>
