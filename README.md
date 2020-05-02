@@ -1,4 +1,4 @@
-# Sudanese Initiative to Fight COVID-19 "Coronavirus" 
+# Sudanese Data Initiative to Fight COVID-19 "Coronavirus" 
 
 ## Sudanese Initiative to Fight COVID-19 in Sudan.
 ![alt text](https://github.com/sudancovid19/sdncovid19/blob/master/SDN-Dashboards/screen_shots/sdn_data_workflow.png)
